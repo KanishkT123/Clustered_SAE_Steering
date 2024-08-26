@@ -89,8 +89,7 @@ def get_neuronpedia_quick_list(
     print(url)
     return url
 
-def build_cluster(layer, feature_id, height=3, setting = 'average', verbose=True):
-    global roots
+def build_cluster(layer, roots, feature_id, height=3, setting = 'average', verbose=True):
     layer = int(layer)
     root = roots[setting][layer]
     node_path = find_node_path(layer, feature_id, root)
