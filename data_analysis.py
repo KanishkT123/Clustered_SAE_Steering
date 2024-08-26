@@ -1,18 +1,10 @@
 import re
 from collections import Counter
 
-# remove the unimportant properties of sentence (articles, uppercase)
-# also tokenize if it hasn't been tokenized yet
 def preprocess(text):
     # Convert to lowercase and remove punctuation
-    text = re.sub(r'[^\w\s]', '', text.lower())
-    # Tokenize
-    words = text.split()
-
-    # Remove common articles
-    stop_words = {'a', 'an', 'the'}
-    return [word for word in words if word not in stop_words]
-
+    return text.lower().split()
+  
 def calculate_breakage_coefficient(text, max_sequence_length=100):
     words = preprocess(text)
     word_freq = Counter(words)
@@ -26,11 +18,23 @@ def calculate_breakage_coefficient(text, max_sequence_length=100):
 
     return normalized_repeats
 
+def calculate_tokenized_breakage(model, text):
+  tokens = model.tokenizer.tokenize(text)
+  unique_tokens = len(set(tokens))
+  repeat_count = len(tokens) - unique_tokens
+  return repeat_count*100/len(tokens)
+
 def calculate_all_breakage(string_list):
   return [calculate_breakage_coefficient(result) for result in string_list]
 
+def calculate_all_breakage(model, string_list):
+  return [calculate_tokenized_breakage(model, result) for result in string_list]
+
 def get_breakage_dict(results_dict):
   return {k:[calculate_breakage_coefficient(result) for result in v] for k, v in results_dict.items()}
+
+def get_breakage_dict(model, results_dict):
+  return {k:[calculate_tokenized_breakage(model, result) for result in v] for k, v in results_dict.items()}
 
 ### Rollout Calculations ###
 # @title helper functions for rollout

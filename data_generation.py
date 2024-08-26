@@ -1,10 +1,9 @@
-from steering_vector_generation import run_generate_n
-from feature_filtering import get_feature_acts_and_sae_out
+from .steering_vector_generation import run_generate_n
+from .feature_filtering import get_feature_acts_and_sae_out
 import torch
 import pickle
 from transformers import BitsAndBytesConfig
 from transformer_lens import HookedTransformer
-import gc
 
 def load_model(model_name, device, hf_token):
   if model_name == "google/gemma-2b":
@@ -29,15 +28,8 @@ def generate_and_save_data(model, sae, steering_vector_func, layer,
   '''
   results_dict = {}
 
-  def clean():
-    del steering_vector
-    del model
-    torch.cude.empty_cache()
-    gc.collect()
-    model = load_model()
-
   with torch.no_grad():
-    sv_feature_acts, sae_out = get_feature_acts_and_sae_out(model, sae, sample_prompt)
+    _, sae_out = get_feature_acts_and_sae_out(model, sae, sample_prompt)
     for coefficient in coefficient_range:
         # Generate the steering vector using the provided function
         steering_vector = steering_vector_func(coefficient)
@@ -46,7 +38,6 @@ def generate_and_save_data(model, sae, steering_vector_func, layer,
         results_steered = run_generate_n(model, layer, sample_prompt, steering_vector, steering_on, sae_out, sample_count, sampling_kwargs)
         # Store the results and breakage data in the respective dictionaries
         results_dict[coefficient] = results_steered
-        clean()
 
   with open(drive_path, 'wb') as f:
     pickle.dump(results_dict, f)

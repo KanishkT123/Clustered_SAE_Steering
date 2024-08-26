@@ -44,8 +44,11 @@ def run_generate_n(model, layer, example_prompt, steering_vector, steering_on, s
   steering_hook_prefilled = partial(steering_hook, steering_on=steering_on, steering_vector=steering_vector, sae_out=sae_out)
 
   editing_hooks = [(f"blocks.{layer}.hook_resid_post", steering_hook_prefilled)]
-  res = hooked_generate([example_prompt]*n, editing_hooks, seed=None, **sampling_kwargs)
+  res = hooked_generate([example_prompt]*n, model, editing_hooks, seed=None, **sampling_kwargs)
 
   # return results, removing the ugly beginning of sequence token
   res_str = model.to_string(res[:, 1:])
   return res_str
+
+def pretty_print_outputs(result):
+   print(("\n\n" + "-" * 80 + "\n\n").join(result))
