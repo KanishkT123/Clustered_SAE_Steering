@@ -15,6 +15,11 @@ from scipy.cluster.hierarchy import dendrogram, linkage
 
 # X is the input data (features as numpy array)
 
+
+##############################
+## Density Based  Clustering #
+##############################
+# DBSCAN
 # DBSCAN : https://scikit-learn.org/stable/modules/clustering.html#dbscan
 # demo of DBSCAN: https://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py
 
