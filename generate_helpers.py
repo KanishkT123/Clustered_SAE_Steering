@@ -18,12 +18,15 @@ def load_json_dataset(str_path:str):
   return df
 
 
-def load_SAEs (sae_release:str, sae_id_list:list, device) -> list:
+def load_pretrained_SAEs (sae_release:str, sae_id_list:list, device) -> list:
     '''
-        Instead of loading each SAE individually, this helps you load all the SAEs you want all at once and outputs a list of the SAEs 
+    load_SAEs : Instead of loading each pretrained SAE individually, 
+    this helps you load all the SAEs you want all at once 
+    and outputs a list of the SAEs, and corresponding lists
+    with their cfg dicts and sparsity values 
     '''
     #initialize
-    n_saes = len(sae_list)
+    n_saes = len(sae_id_list)
     sae_list = [None]*n_saes
     cfg_dict_list = [None]*n_saes
     sparsity_list = [None]*n_saes
