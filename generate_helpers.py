@@ -66,12 +66,12 @@ def sae_directory_info(model=None, release=None, exact_match_model:bool=True, ex
         if exact_match_model:
             model_df = model_df[model_df['model']==model]
         else:
-            model_df[[model in r for r in model_df['model'].to_list()]]
+            model_df= model_df[[model in r for r in model_df['model'].to_list()]]
 
     # case release is not None
     if release is not None:
         if exact_match_release:
             model_df = model_df[model_df['release']==release]
         else:
-            model_df[[release in r for r in model_df['release'].to_list()]]
+            model_df = model_df[[release in r for r in model_df['release'].to_list()]]
     return model_df
