@@ -81,7 +81,8 @@ def sae_directory_info(model=None, release=None, exact_match_model:bool=True, ex
 
 ######################################################################################################
 ### FUNCTIONS TO FILTER OUT DATAFRAME RESULTS TO HELP LOAD APPROPRIATE SAES ####
-### GEMMA-SCOPE SPECIFIC FUNCTIONS UNLESS OTHERWISE SPECFIED !!!   
+### GEMMA-SCOPE SPECIFIC FUNCTIONS UNLESS OTHERWISE SPECFIED  ################## 
+### WILL  NEED TO UPDATE IN THE FUTURE DEPENDING ON WHAT PPL NAME THEIR SAES #####  
 ######################################################################################################
 def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16):
     '''
