@@ -5,7 +5,7 @@ from sae_lens import SAE, HookedSAETransformer
 from sae_lens.toolkit.pretrained_saes_directory import get_pretrained_saes_directory
 
 
-# LOAD DATASET FROM .JSON OR .JSONL
+# LOAD DATASET FROM .JSON OR .JSONL INTO A DATAFRAME
 def load_json_dataset(str_path:str):
   '''
   load_json_dataset(path_to_file)
@@ -48,7 +48,6 @@ def load_pretrained_SAEs (sae_release:str, sae_id_list:list, device) -> list:
 
 
 # LOAD SAE DIRECTORY AND FILTER BY MODEL AND RELEASES OF INTEREST
-# ADDED TO GENERATE_HELPERS.PY : LOAD SAE DIRECTORY AND FILTER BY MODEL AND RELEASES OF INTEREST
 def sae_directory_info(model=None, release=None, exact_match_model:bool=True, exact_match_release:bool=False)-> DataFrame:
     '''
     Returns a filtered version of the sae directory data frame - using get_pretrained_saes_directory of SAELens
@@ -135,7 +134,7 @@ def get_lowest_L0_sae_id_for_each_layer(model_df:DataFrame, layer=None, width=16
     # THIS  - [0] - IS WHERE THE SINGLE DATAFRAME ENTRY COMES IN, CAN BE FIXED IN THE FUTURE
     all_sae_ids = list(model_df.saes_map.to_list()[0].keys())
 
-    # layer is a list of integers
+    # layer is a list of natural numbers
     if layer is None:
        layer = list(set([parse_sae_layer(s) for s in all_sae_ids]))
 
