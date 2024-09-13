@@ -5,7 +5,7 @@
 import numpy as np
 
 
-from sklearn.preprocessing import StandardScalar
+from sklearn.preprocessing import StandardScaler
 from sklearn import metrics
 from sklearn.decomposition import PCA
 
