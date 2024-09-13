@@ -1,4 +1,5 @@
 # Sci-Kit Learn Clusering Documentation https://scikit-learn.org/stable/modules/clustering.htm
+# Sci-Kit Learn documentation on manifold learning functions: https://scikit-learn.org/stable/modules/manifold.html
 
 # import libraries 
 import numpy as np
