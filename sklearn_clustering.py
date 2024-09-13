@@ -38,8 +38,6 @@ def run_pca_on_matrix (decoder_matrix, n_components):
   decoder_matrix_2d = pca.fit_transform(decoder_matrix)
   return decoder_matrix_2d
 
-= 'ward', \
-                     compute_distances: bool = False
 
 def run_agg_clustering(decoder_matrix, linkage='ward', n_clusters=None, \
                        metric='eucledian',  distance_threshold=None, compute_distances=False):
