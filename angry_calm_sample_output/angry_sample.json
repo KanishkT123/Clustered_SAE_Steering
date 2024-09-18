@@ -1,0 +1,16 @@
+{
+    "angry_text_samples": [
+      "I can't believe how careless people can be! It's so frustrating to see such disregard!",
+      "This situation is absolutely unacceptable and it makes me so mad!",
+      "I'm really angry at how things turned out! This isn't fair to anyone!",
+      "Every time I think about it, my blood boils. Why can't people just think?",
+      "I am fed up with the constant excuses. Enough is enough!"
+    ],
+    "angry_broken_samples": [
+        "I can't believe how careless people can be! It's so frustrating to see such disregard!",
+        "This situation is absolutely unacceptable and it makes me so mad!",
+        "I'm really angry at how things turned out! This isn't fair to anyone!",
+        "Every time I think about it, my blood boils. Why can't people just think?",
+        "I am fed up with the constant excuses. Enough is enough!"
+        ]
+  }
