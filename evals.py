@@ -47,13 +47,37 @@ def get_breakage_dict(results_dict):
 def get_breakage_dict(model, results_dict):
   return {k:[calculate_tokenized_breakage(model, result) for result in v] for k, v in results_dict.items()}
 
-### Rollout Calculations ###
-# @title helper functions for rollout
-def rollout_success(output, word_list):
-  # returns boolean (T, F) of whether rollout has words in the word_list
-  output = '_'.join(output.split(' ')) # replace spaces with underscores (like angry_words)
-  return any([w in output.lower() for w in word_list])
+def rollout_success_prob(text, word_list):
+    """
+    Calculate the ratio of words in the sentence that are in the word_list.
 
+    Args:
+    text (str): The sentence to be analyzed.
+    word_list (List[str]): The list of words to check in the sentence.
+
+    Returns:
+    float: The ratio of matching words to total words in the sentence.
+    """
+    # Convert word_list to lowercase for case-insensitive matching
+    word_list_lower = [word.lower() for word in word_list]
+
+    # Split the text into words and convert to lowercase
+    words = text.lower().split()
+
+    # Count matching words
+    matching_words = [word for word in words if word in word_list_lower]
+    matching_count = len(matching_words)
+
+    # Calculate the ratio
+    total_words = len(words)
+    ratio = matching_count / total_words if total_words > 0 else 0
+
+    # Count occurrences of each matching word
+    word_count = Counter(matching_words)
+    for word, count in word_count.items():
+        print(f"Word '{word}' appears {count} times in the sentence out of {total_words} words.")
+
+    return ratio
 
 class Sentiment:
     
