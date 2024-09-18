@@ -93,29 +93,30 @@ class Sentiment:
         return logprob_dict, top_token
 
     emotion_mapping = {
-        'joy': ['joy', 'joyful', 'joyous', 'joyfulness'],
-        'contentment': ['contentment', 'content', 'contented'],
-        'excitement': ['excitement', 'excited', 'exciting'],
-        'gratitude': ['gratitude', 'grateful', 'gratified'],
-        'sadness': ['sadness', 'sad', 'saddened'],
-        'anger': ['anger', 'angry', 'angered'],
-        'fear': ['fear', 'fearful', 'afraid'],
-        'disgust': ['disgust', 'disgusted', 'disgusting'],
-        'indifference': ['indifference', 'indifferent', 'uninterested'],
-        'ambivalence': ['ambivalence', 'ambivalent', 'uncertain'],
-        'nostalgia': ['nostalgia', 'nostalgic', 'longing'],
-        'bittersweet': ['bittersweet', 'bitter', 'sweet'],
-        'anticipation': ['anticipation', 'anticipating', 'expectation'],
-        'surprise': ['surprise', 'surprised', 'unexpected'],
-        'empathy': ['empathy', 'empathetic', 'compassion'],
-        'pride': ['pride', 'proud', 'self-satisfaction'],
-        'shame': ['shame', 'ashamed'],
-        'guilt': ['guilt', 'guilty', 'remorse'],
-        'curiosity': ['curiosity', 'curious', 'inquisitive'],
-        'confusion': ['confusion', 'confused', 'puzzled'],
-        'certainty': ['certainty', 'certain', 'sure'],
-        'doubt': ['doubt', 'doubtful', 'uncertain']
-    }
+    'joy': ['joy', 'joyful', 'joyous', 'joyfulness', 'elated', 'delighted'],
+    'contentment': ['contentment', 'content', 'contented', 'satisfied'],
+    'excitement': ['excitement', 'excited', 'exciting', 'thrilled', 'exhilarated'],
+    'gratitude': ['gratitude', 'grateful', 'gratified', 'thankful', 'appreciative'],
+    'sadness': ['sadness', 'sad', 'saddened', 'melancholy', 'gloomy'],
+    'anger': ['anger', 'angry', 'angered', 'furious', 'enraged'],
+    'fear': ['fear', 'fearful', 'afraid', 'scared', 'terrified'],
+    'disgust': ['disgust', 'disgusted', 'disgusting', 'repulsed'],
+    'indifference': ['indifference', 'indifferent', 'uninterested', 'apathetic'],
+    'ambivalence': ['ambivalence', 'ambivalent', 'uncertain', 'conflicted'],
+    'nostalgia': ['nostalgia', 'nostalgic', 'longing', 'reminiscent'],
+    'bittersweet': ['bittersweet', 'bitter', 'sweet', 'mixed emotions'],
+    'anticipation': ['anticipation', 'anticipating', 'expectation', 'looking forward'],
+    'surprise': ['surprise', 'surprised', 'unexpected', 'astonished'],
+    'empathy': ['empathy', 'empathetic', 'compassion', 'understanding'],
+    'pride': ['pride', 'proud', 'self-satisfaction', 'accomplished'],
+    'shame': ['shame', 'ashamed', 'embarrassed', 'humiliated'],
+    'guilt': ['guilt', 'guilty', 'remorse', 'regretful'],
+    'curiosity': ['curiosity', 'curious', 'inquisitive', 'interested'],
+    'confusion': ['confusion', 'confused', 'puzzled', 'perplexed'],
+    'certainty': ['certainty', 'certain', 'sure', 'confident'],
+    'doubt': ['doubt', 'doubtful', 'uncertain', 'skeptical'],
+    'frustration': ['frustration', 'frustrated', 'exasperated', 'annoyed', 'irritated']
+}
 
     # Create a reverse mapping for easy lookup
     reverse_emotion_mapping = {variation: base for base, variations in emotion_mapping.items() for variation in variations}
