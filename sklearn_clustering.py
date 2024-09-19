@@ -140,7 +140,8 @@ def run_umap(decoder_matrix, n_components=2, random_state=0):
 # DBSCAN
 # DBSCAN : https://scikit-learn.org/stable/modules/clustering.html#dbscan
 # demo of DBSCAN: https://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py
-def run_dbscan (X:np.array, eps:float = 0.3, min_samples:int=10, standard_scale:bool=False):
+def run_dbscan (X, eps:float = 0.3, min_samples:int=10, standard_scale:bool=False):
+    # X is np array
     if standard_scale:
         X = StandardScaler().fit_transform(X)
     db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
