@@ -2,21 +2,21 @@
 # Sci-Kit Learn documentation on manifold learning functions: https://scikit-learn.org/stable/modules/manifold.html
 # CUML functions need https://github.com/rapidsai-community/rapidsai-csp-utils
 
-# import libraries 
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn import metrics
-from sklearn.decomposition import PCA
-# sklearn clustering methods
-from sklearn.cluster import DBSCAN, HDBSCAN, KMeans, SpectralClustering, AgglomerativeClustering
-# for scipy hierarchical clustering, linkage for computing, dendrogram for plotting
-from scipy.cluster.hierarchy import dendrogram, linkage 
-# umap
-import umap
-# plotting (only used for plotting dendrograms - set to False automatically, though this should be done separately)
-import matplotlib.pyplot as plt
-# FOR GPU Clustering 
-import cuml
+# # import libraries 
+# import numpy as np
+# from sklearn.preprocessing import StandardScaler
+# from sklearn import metrics
+# from sklearn.decomposition import PCA
+# # sklearn clustering methods
+# from sklearn.cluster import DBSCAN, HDBSCAN, KMeans, SpectralClustering, AgglomerativeClustering
+# # for scipy hierarchical clustering, linkage for computing, dendrogram for plotting
+# from scipy.cluster.hierarchy import dendrogram, linkage 
+# # umap
+# import umap
+# # plotting (only used for plotting dendrograms - set to False automatically, though this should be done separately)
+# import matplotlib.pyplot as plt
+# # FOR GPU Clustering 
+# import cuml
 
 
 # KMEANS
