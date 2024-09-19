@@ -155,3 +155,11 @@ def run_hdbscan(X):
     clusterer = cuml.cluster.hdbscan.HDBSCAN()
     labels = clusterer.fit_predict(X)
     return labels
+
+
+# (min_cluster_size=5, min_samples=None, cluster_selection_epsilon=0.0, max_cluster_size=None, metric='euclidean', metric_params=None, alpha=1.0, algorithm='auto', leaf_size=40, n_jobs=None, cluster_selection_method='eom', allow_single_cluster=False, store_centers=None, copy=False)[source]
+
+def run_hdbscan_cpu(X, metric=‘cosine’):          
+    clusterer = sklearn.cluster.HDBSCAN(metric=metric))
+    labels = clusterer.fit_predict(X)
+    return labels
