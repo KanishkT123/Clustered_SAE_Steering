@@ -21,15 +21,16 @@
 
 # KMEANS
 # decoder_matrix is the input data (features as numpy array)
-def run_kmeans_on_matrix(decoder_matrix:np.array, K=5000,random_state=0):
-  '''KMeans SKLEARN'''
+def run_kmeans_on_matrix(decoder_matrix, K=5000,random_state=0):
+  '''KMeans SKLEARN , decoder matrix is numpy array'''
   kmeans = KMeans(n_clusters=K, random_state=random_state)
   kmeans.fit(decoder_matrix)
   cluster_centers = kmeans.cluster_centers_
   labels = kmeans.labels_
   return cluster_centers, labels
 
-def run_kmeans_on_matrix_gpu(decoder_matrix:np.array, K=5000,random_state=0):
+def run_kmeans_on_matrix_gpu(decoder_matrix, K=5000,random_state=0):
+  # decoder matrix is numpy array
   kmeans = cuml.cluster.KMeans(n_clusters=K, random_state=0)
   kmeans.fit(decoder_matrix)
   cluster_centers = kmeans.cluster_centers_
