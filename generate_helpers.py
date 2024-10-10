@@ -147,7 +147,10 @@ def get_lowest_L0_sae_id_for_each_layer(model_df:DataFrame, layer=None, width=16
         if len(layer_sae_ids) == 0:
             print(f'No SAEs found for layer {ilayer}')
             continue
-        lowest_L0_sae_id_list[idx] = lowest_L0_sae_id(layer_sae_ids)
+        elif len(layer_sae_ids) == 1:
+            lowest_L0_sae_id_list[idx]= layer_sae_ids
+        else:
+            lowest_L0_sae_id_list[idx] = lowest_L0_sae_id(layer_sae_ids)
 
     return lowest_L0_sae_id_list
 
