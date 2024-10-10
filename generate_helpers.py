@@ -92,7 +92,7 @@ def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16):
     FOR GPT SMALL: assumes there will be blocks.XX. in the name
     '''
     # first tries gemmascope expectation
-    newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}' in s)]
+    newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}/' in s)]
     # then tries gpt2small exepctation
     if len(newlist) == 0:
         newlist= [s for s in sae_id_list if (f'blocks.{layer}.' in s)]
