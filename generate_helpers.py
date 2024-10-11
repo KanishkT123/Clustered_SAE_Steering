@@ -83,7 +83,7 @@ def sae_directory_info(model=None, release=None, exact_match_model:bool=True, ex
 ### GEMMA-SCOPE SPECIFIC FUNCTIONS UNLESS OTHERWISE SPECFIED  ################## 
 ### WILL  NEED TO UPDATE IN THE FUTURE DEPENDING ON WHAT PPL NAME THEIR SAES #####  
 ######################################################################################################
-def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16):
+def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16, L0:int=None):
     '''
     get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16)
 
@@ -91,13 +91,66 @@ def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16):
     FOR GEMMA: assumes that there will be a layer_XX and a width_YY somewhere in the name
     FOR GPT SMALL: assumes there will be blocks.XX. in the name
     '''
-    # first tries gemmascope expectation
-    newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}/' in s)]
-    # then tries gpt2small exepctation
-    if len(newlist) == 0:
-        newlist= [s for s in sae_id_list if (f'blocks.{layer}.' in s)]
+    if L0==None:
+        # first tries gemmascope expectation
+        newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}/' in s)]
+        # then tries gpt2small exepctation
+        if len(newlist) == 0:
+            newlist= [s for s in sae_id_list if (f'blocks.{layer}.' in s)]
 
-    return newlist
+        return newlist
+    else:
+        newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}/' in s and f'l0_{L0}' in s)]
+
+
+def get_sae_ids_with_L0_dict(model_df:DataFrame, width=16,layer_lo=None):
+    '''
+    FOR GEMMASCOPE, the SAE_IDs and Neuronpedia IDs in the sae directory are a fucked
+    layer_lo is a dict with integer key,value pairs {layer: L0}
+      '''
+    if layer_lo==None:
+        layer_lo = {0: 105,
+          1: 102,
+          2: 141,
+          3: 59,
+          4: 124,
+          5: 68,
+          6: 70,
+          7: 69,
+          8: 71,
+          9: 73,
+          10: 77,
+          11: 80,
+          12: 82,
+          13: 84,
+          14: 84,
+          15: 78,
+          16: 78,
+          17: 77,
+          18: 74,
+          19: 73,
+          20: 71,
+          21: 70,
+          22: 72,
+          23: 75,
+          24: 73,
+          25: 116
+      }
+    
+      # initialize list
+    sae_id_list = [None]*len(layer_lo)
+
+
+    # THIS  - [0] - IS WHERE THE SINGLE DATAFRAME ENTRY COMES IN, CAN BE FIXED IN THE FUTURE
+    all_sae_ids = list(model_df.saes_map.to_list()[0].keys())
+
+
+    for layer, L0 in layer_lo.items():
+        layer_sae_ids = get_saeids_for_layer(all_sae_ids, layer=layer, width=width, L0=L0)
+        sae_id_list[layer] = layer_sae_ids[0]
+
+    return sae_id_list
+
 
 def parse_sae_LO(sae_id):
     '''
