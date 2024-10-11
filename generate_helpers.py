@@ -83,7 +83,7 @@ def sae_directory_info(model=None, release=None, exact_match_model:bool=True, ex
 ### GEMMA-SCOPE SPECIFIC FUNCTIONS UNLESS OTHERWISE SPECFIED  ################## 
 ### WILL  NEED TO UPDATE IN THE FUTURE DEPENDING ON WHAT PPL NAME THEIR SAES #####  
 ######################################################################################################
-def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16, L0:int=None):
+def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16, L0:int=-1):
     '''
     get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16)
 
@@ -91,24 +91,23 @@ def get_saeids_for_layer(sae_id_list:list, layer:int=0, width:int=16, L0:int=Non
     FOR GEMMA: assumes that there will be a layer_XX and a width_YY somewhere in the name
     FOR GPT SMALL: assumes there will be blocks.XX. in the name
     '''
-    if L0==None:
+    if L0 == -1:
         # first tries gemmascope expectation
         newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}/' in s)]
         # then tries gpt2small exepctation
         if len(newlist) == 0:
             newlist= [s for s in sae_id_list if (f'blocks.{layer}.' in s)]
-
-        return newlist
     else:
         newlist= [s for s in sae_id_list if (f'width_{width}' in s and f'layer_{layer}/' in s and f'l0_{L0}' in s)]
 
+    return newlist
 
-def get_sae_ids_with_L0_dict(model_df:DataFrame, width=16,layer_lo=None):
+def get_sae_ids_with_L0_dict(model_df:DataFrame, width=16,layer_lo={}):
     '''
     FOR GEMMASCOPE, the SAE_IDs and Neuronpedia IDs in the sae directory are a fucked
     layer_lo is a dict with integer key,value pairs {layer: L0}
       '''
-    if layer_lo==None:
+    if len(layer_lo) == 0:
         layer_lo = {0: 105,
           1: 102,
           2: 141,
@@ -144,11 +143,9 @@ def get_sae_ids_with_L0_dict(model_df:DataFrame, width=16,layer_lo=None):
     # THIS  - [0] - IS WHERE THE SINGLE DATAFRAME ENTRY COMES IN, CAN BE FIXED IN THE FUTURE
     all_sae_ids = list(model_df.saes_map.to_list()[0].keys())
 
-
     for layer, L0 in layer_lo.items():
         layer_sae_ids = get_saeids_for_layer(all_sae_ids, layer=layer, width=width, L0=L0)
         sae_id_list[layer] = layer_sae_ids[0]
-
     return sae_id_list
 
 
