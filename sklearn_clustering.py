@@ -23,67 +23,67 @@ from sklearn.metrics import  pairwise_distances
 # KMEANS
 # decoder_matrix is the input data (features as numpy array)
 def run_kmeans_on_matrix(decoder_matrix, K=5000,random_state=0):
-  '''KMeans SKLEARN , decoder matrix is numpy array'''
-  kmeans = KMeans(n_clusters=K, random_state=random_state)
-  kmeans.fit(decoder_matrix)
-  cluster_centers = kmeans.cluster_centers_
-  labels = kmeans.labels_
-  return cluster_centers, labels
+    '''KMeans SKLEARN , decoder matrix is numpy array'''
+    kmeans = KMeans(n_clusters=K, random_state=random_state)
+    kmeans.fit(decoder_matrix)
+    cluster_centers = kmeans.cluster_centers_
+    labels = kmeans.labels_
+    return cluster_centers, labels
 
 def run_kmeans_on_matrix_gpu(decoder_matrix, K=5000,random_state=0):
-  # decoder matrix is numpy array
-  kmeans = cuml.cluster.KMeans(n_clusters=K, random_state=0)
-  kmeans.fit(decoder_matrix)
-  cluster_centers = kmeans.cluster_centers_
-  labels = kmeans.labels_
-  return cluster_centers, labels
+    # decoder matrix is numpy array
+    kmeans = cuml.cluster.KMeans(n_clusters=K, random_state=0)
+    kmeans.fit(decoder_matrix)
+    cluster_centers = kmeans.cluster_centers_
+    labels = kmeans.labels_
+    return cluster_centers, labels
 
 
 # PCA
 def run_pca_on_matrix (decoder_matrix, n_components):
-  pca = PCA(n_components=n_components)
-  decoder_matrix_2d = pca.fit_transform(decoder_matrix)
-  return pca, decoder_matrix_2d
+    pca = PCA(n_components=n_components)
+    decoder_matrix_2d = pca.fit_transform(decoder_matrix)
+    return pca, decoder_matrix_2d
 
 
 # PLOTTING 
 def generate_scree_plot(explained_variance_ratio, title):
-  # Plot the explained variance for each component
-  cumulative_variance = np.cumsum(explained_variance_ratio)
-  plt.figure(figsize=(8, 6))
-  plt.plot(range(1, len(cumulative_variance) + 1), cumulative_variance, marker='o', linestyle='--', color='b')
-  plt.bar(range(1, len(explained_variance_ratio) + 1), explained_variance_ratio, alpha=0.7, align='center')
-  plt.xlabel('Principal Components')
-  plt.ylabel('Explained Variance Ratio')
-  plt.title(f'Scree Plot for {title}')
-  plt.show()
+    # Plot the explained variance for each component
+    cumulative_variance = np.cumsum(explained_variance_ratio)
+    plt.figure(figsize=(8, 6))
+    plt.plot(range(1, len(cumulative_variance) + 1), cumulative_variance, marker='o', linestyle='--', color='b')
+    plt.bar(range(1, len(explained_variance_ratio) + 1), explained_variance_ratio, alpha=0.7, align='center')
+    plt.xlabel('Principal Components')
+    plt.ylabel('Explained Variance Ratio')
+    plt.title(f'Scree Plot for {title}')
+    plt.show()
 
 def plot_variance(variances, title):
-  columns = [f'PC{i+1}' for i in range(variances.shape[0])]  # Names for the PCs
-  index = [f'{i+1}' for i in range(variances.shape[1])]  # Names for the features
-  df_variance_contrib = pd.DataFrame(variances.T, columns=columns, index=index)
+    columns = [f'PC{i+1}' for i in range(variances.shape[0])]  # Names for the PCs
+    index = [f'{i+1}' for i in range(variances.shape[1])]  # Names for the features
+    df_variance_contrib = pd.DataFrame(variances.T, columns=columns, index=index)
 
-  df_variance_contrib.plot(kind='bar', figsize=(10, 6))
-  plt.title(f'Variance Contribution of Each Feature to Principal Components for {title}')
-  plt.xlabel('Features')
-  plt.ylabel('Variance Contribution')
-  plt.legend(title='Principal Components')
-  plt.show()
+    df_variance_contrib.plot(kind='bar', figsize=(10, 6))
+    plt.title(f'Variance Contribution of Each Feature to Principal Components for {title}')
+    plt.xlabel('Features')
+    plt.ylabel('Variance Contribution')
+    plt.legend(title='Principal Components')
+    plt.show()
 
 def plot_cluster_sizes(cluster_labels, title):
-  cluster_counts = Counter(cluster_labels)
+    cluster_counts = Counter(cluster_labels)
 
-  # Step 2: Prepare data for plotting
-  clusters = list(cluster_counts.keys())  # Cluster labels
-  counts = list(cluster_counts.values())  # Number of points in each cluster
+    # Step 2: Prepare data for plotting
+    clusters = list(cluster_counts.keys())  # Cluster labels
+    counts = list(cluster_counts.values())  # Number of points in each cluster
 
-  # Step 3: Plot the number of points in each cluster
-  plt.figure(figsize=(8, 6))
-  plt.bar(clusters, counts, color='blue')
-  plt.xlabel('Cluster Label')
-  plt.ylabel('Number of Points')
-  plt.title(f'Number of Points in Each Cluster for {title}')
-  plt.show()
+    # Step 3: Plot the number of points in each cluster
+    plt.figure(figsize=(8, 6))
+    plt.bar(clusters, counts, color='blue')
+    plt.xlabel('Cluster Label')
+    plt.ylabel('Number of Points')
+    plt.title(f'Number of Points in Each Cluster for {title}')
+    plt.show()
 
 ##############################
 ## Agglomerative Clustering #
@@ -129,9 +129,9 @@ def run_spectral_clustering(decoder_matrix, n_clusters=10, affinity='nearest_nei
     return clusters
 
 def run_umap(decoder_matrix, n_components=2, random_state=0):
-  umap_model = umap.UMAP(n_components=n_components, random_state=random_state)
-  embedding = umap_model.fit_transform(decoder_matrix)
-  return embedding
+    umap_model = umap.UMAP(n_components=n_components, random_state=random_state)
+    embedding = umap_model.fit_transform(decoder_matrix)
+    return embedding
 
 
 
@@ -167,15 +167,15 @@ def run_hdbscan(X):
 
 
 def cpu_sae_umap_dmat(decoder_matrix):
-  umap_reducer = umap.UMAP(n_components=2, metric='cosine', n_epochs=1000)
-  decoder_umap = umap_reducer.fit_transform(decoder_matrix)
-  return decoder_umap
+    umap_reducer = umap.UMAP(n_components=2, metric='cosine', n_epochs=1000)
+    decoder_umap = umap_reducer.fit_transform(decoder_matrix)
+    return decoder_umap
 
 
 def cpu_hdbscan_dmat(decoder_matrix,cluster_selection_epsilon=0.0, min_cluster_size=3, min_samples=3):
-  precomputed_metric = pairwise_distances(decoder_matrix, metric='cosine')
-  hdb = HDBSCAN(metric='precomputed', cluster_selection_method='leaf',
-                cluster_selection_epsilon=cluster_selection_epsilon,
-                min_cluster_size=min_cluster_size, min_samples=min_samples)
-  labels = hdb.fit_predict(precomputed_metric)
-  return labels
+    precomputed_metric = pairwise_distances(decoder_matrix, metric='cosine')
+    hdb = HDBSCAN(metric='precomputed', cluster_selection_method='leaf',
+                  cluster_selection_epsilon=cluster_selection_epsilon,
+                  min_cluster_size=min_cluster_size, min_samples=min_samples)
+    labels = hdb.fit_predict(precomputed_metric)
+    return labels
