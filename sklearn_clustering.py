@@ -171,9 +171,10 @@ def cpu_sae_umap_dmat(decoder_matrix):
   return decoder_umap
 
 
-def cpu_hdbscan_dmat(decoder_matrix):
+def cpu_hdbscan_dmat(decoder_matrix,cluster_selection_epsilon=0.0, min_cluster_size=3, min_samples=3):
   precomputed_metric = pairwise_distances(decoder_matrix, metric='cosine')
   hdb = HDBSCAN(metric='precomputed', cluster_selection_method='leaf',
-                cluster_selection_epsilon=0.0, min_cluster_size=3, min_samples=3)
+                cluster_selection_epsilon=cluster_selection_epsilon,
+                min_cluster_size=min_cluster_size, min_samples=min_samples)
   labels = hdb.fit_predict(precomputed_metric)
   return labels
