@@ -17,6 +17,7 @@
 # import matplotlib.pyplot as plt
 # # FOR GPU Clustering 
 # import cuml
+from sklearn.metrics import  pairwise_distances
 
 
 # KMEANS
